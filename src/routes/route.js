@@ -4,14 +4,23 @@ const underscore = require('underscore')
 
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    myHelper.printDate()
-    myHelper.getCurrentMonth()
-    myHelper.getCohortData()
-    let firstElement = underscore.first(['Sabiha','Akash','Pritesh'])
-    console.log('The first element received from underscope function is '+firstElement)
-    res.send('My first ever api!')
+router.get("/sol1", function (req, res) {
+    //logic : sum of numbers is n(n+1)/2..so get sum of all numbers in array. now take sum of numbers till last digit in the array
+    let arr= [1,2,3,5,6,7]
+    let sumOfArray = 0;
+    for(let i=0;i<arr.length;i++){
+        sumOfArray+= arr[i]
+    }
+    console.log(sumOfArray);
+    let missingNumber
+    let sum = (arr[(arr.length-1)]*(arr.length+2))/2;
+    console.log(sum)
+    missingNumber = sum-sumOfArray
+    console.log(missingNumber);
+    ///LOGIC WILL GO HERE 
+    res.send(  { data: missingNumber  }  );
 });
+
 
 router.get('/hello', function (req, res) {
    
