@@ -6,13 +6,13 @@ router.get('/movies', function(req, res){
     let movies = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"];
     res.send(movies);
 })
-
+/*
 router.get('/movies/:indexNumber', function(req, res){
     let movies = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"];
     let i = req.params.indexNumber;
     res.send(movies[i]);
 })
-
+*/
 router.get('/movies/:indexNumber', function(req, res){
     let movies = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"];
     let movieIndex = req.params.indexNumber;
