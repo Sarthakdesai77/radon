@@ -13,7 +13,7 @@ router.get("/random" , function(req, res) {
 
 
 router.get("/test-api" , function(req, res) {
-    res.send("hi FunctionUp")
+    res.send("hi FunctionUp this is Sarthak")
 })
 
 
