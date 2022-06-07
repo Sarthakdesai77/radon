@@ -18,20 +18,13 @@ const getBooksInYear = async function(req,res){
 }
 
 const getParticularBooks = async function(req,res){
-    let yr = req.params.year;
-    let bkname = req.params.bookName;
-    let auth = req.params.authorName;
-    let page = req.params.totalPages;
-    let stock = req.params.stockAvailable;
-    let tg = req.params.tags;
-    let rs = req.params.price;
-    let saveData = await bookModel.find({$or: [{year:yr},{bookName:bkname},{authorName:auth},{totalPages:page},{stockAvailable:stock},{tags:tg},{price:rs}]});
+    let fetch = req.body
+    let saveData = await bookModel.find(fetch);
     res.send({msg: saveData});
 }
 
 const getXINRBooks = async function(req,res){
-    let bookPrice = req.params.IndianPrice;
-    let priceData = await bookModel.find({price:{IndianPrice:bookPrice}});
+    let priceData = await bookModel.find({"price.IndianPrice":{$in:["Rs 100","Rs 200","Rs 500"]}});
     res.send({msg: priceData});
 }
 
@@ -39,6 +32,7 @@ const getRandomBooks = async function(req,res){
     let stockData = await bookModel.find({$or: [{stockAvailable: true},{totalPages:{$gt: 500}}]});
     res.send({msg: stockData});
 }
+
 // const getBook = async function (req,res){
 //     let allBook = await bookModel.find();
 //     res.send({msg: allBook});
