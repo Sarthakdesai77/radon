@@ -1,4 +1,5 @@
 const bookModel = require('../models/bookmodel')
+const authorModel = require('../models/authormodel')
 
 const createBook = async function(req,res){
     let data = req.body;
@@ -6,41 +7,18 @@ const createBook = async function(req,res){
     res.send({msg: saveData});
 }
 
-const bookList = async function(req,res){
-    let list = await bookModel.find().select({bookName:1,authorName:1,_id:0});
-    res.send({msg: list});
+const getBooksAuthor = async function (req,res){
+    let saveData = await bookModel.findOneAndUpdate({name: 'Two states'},{$set: {price: 100}},{new: true});
+    let anotherData = await bookModel.find({name: "Two states"}).select({authorId:1,_id:0});
+    let book = await authorModel.find({authorId:anotherData[0].authorId});
+    res.send({msg: saveData,book});
 }
 
-const getBooksInYear = async function(req,res){
-    let bookYear = req.params.year;
-    let saveData = await bookModel.find({year:bookYear});
+const bookPrice = async function(req,res){
+    let saveData = await bookModel.find({price: {$gte:50,$lte:100}});
     res.send({msg: saveData});
 }
-
-const getParticularBooks = async function(req,res){
-    let fetch = req.body
-    let saveData = await bookModel.find(fetch);
-    res.send({msg: saveData});
-}
-
-const getXINRBooks = async function(req,res){
-    let priceData = await bookModel.find({"price.IndianPrice":{$in:["Rs 100","Rs 200","Rs 500"]}});
-    res.send({msg: priceData});
-}
-
-const getRandomBooks = async function(req,res){
-    let stockData = await bookModel.find({$or: [{stockAvailable: true},{totalPages:{$gt: 500}}]});
-    res.send({msg: stockData});
-}
-
-// const getBook = async function (req,res){
-//     let allBook = await bookModel.find();
-//     res.send({msg: allBook});
-// }
 
 module.exports.createBook=createBook
-module.exports.bookList = bookList
-module.exports.getBooksInYear = getBooksInYear
-module.exports.getParticularBooks = getParticularBooks
-module.exports.getXINRBooks = getXINRBooks
-module.exports.getRandomBooks = getRandomBooks
+module.exports.getBooksAuthor = getBooksAuthor
+module.exports.bookPrice = bookPrice

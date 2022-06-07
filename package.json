@@ -14,6 +14,6 @@
     "express": "^4.17.1",
     "mongoose": "^6.3.5",
     "nodeman": "^1.1.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16"
   }
 }
