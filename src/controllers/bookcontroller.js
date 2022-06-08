@@ -11,7 +11,7 @@ const getBooksAuthor = async function (req,res){
     let saveData = await bookModel.findOneAndUpdate({name: 'Two states'},{$set: {price: 100}},{new: true});
     let anotherData = await bookModel.find({name: "Two states"}).select({authorId:1,_id:0});
     let book = await authorModel.find({authorId:anotherData[0].authorId});
-    res.send({msg: saveData,book});
+    res.send({msg: saveData, book});
 }
 
 const bookPrice = async function(req,res){
@@ -19,6 +19,15 @@ const bookPrice = async function(req,res){
     res.send({msg: saveData});
 }
 
+const bookByAuthorId = async function(req,res){
+    let data = req.params.authorId;
+    let authorData = await authorModel.find({authorId: data}).select({authorName: 1,_id:0});
+    let bookData = await bookModel.find({authorId: data}).select({name:1,_id:0});
+    res.send({"author details": authorData, "books available": bookData});
+}
+
+
 module.exports.createBook=createBook
 module.exports.getBooksAuthor = getBooksAuthor
 module.exports.bookPrice = bookPrice
+module.exports.bookByAuthorId = bookByAuthorId

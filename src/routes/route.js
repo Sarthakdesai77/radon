@@ -17,4 +17,8 @@ router.get('/getBooksAuthor',bookcontroller.getBooksAuthor)
 
 router.get('/bookPrice',bookcontroller.bookPrice)
 
+router.get('/bookByAuthorId/:authorId',bookcontroller.bookByAuthorId)
+
+router.get('/listAuthor',authorcontroller.listAuthor)
+
 module.exports = router;
