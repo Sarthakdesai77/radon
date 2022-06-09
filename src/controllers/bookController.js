@@ -27,6 +27,19 @@ const getBooksData= async function (req, res) {
     res.send({data: books})
 }
 
+const updateBooks = async function(req, res){
+    
+    let publisherId = await publisherModel.find({$or: [{name : "penguin"},{ name: "harpercollins"}]}).select({_id:1})
+
+    let updateBook = await bookModel.updateMany({publisher: publisherId},{$set: {isHardCover: true}})
+
+    let authorId = await authorModel.find({rating: {$gt: 3.5}}).select({_id:1})
+    
+    let updatePrice = await bookModel.updateMany({author: authorId},{$inc: {price: 10}})
+
+    return res.send({msg: updateBook, updatePrice})
+}
 
 module.exports.createBook= createBook
 module.exports.getBooksData= getBooksData
+module.exports.updateBooks = updateBooks
