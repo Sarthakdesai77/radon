@@ -1,4 +1,5 @@
 const express = require('express');
+const moment = require('moment');
 const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
@@ -8,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://sarthak:K3rhbWfAU10MCbSA@cluster0.ne6rr.mongodb.net/sarthakdesai?retryWrites=true&w=majority", {
     useNewUrlParser: true
 })
 .then( () => console.log("MongoDb is connected"))
@@ -16,10 +17,8 @@ mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzot
 
 app.use (
     function (req, res, next) {
-        console.log ("inside GLOBAL MW");
-        next();
-  }
-  );
+        console.log (moment().format("YYYY-MM-DD h:mm:ss a")+", "+req.socket.remoteAddress+", "+req.path);
+    });
 
 app.use('/', route);
 
