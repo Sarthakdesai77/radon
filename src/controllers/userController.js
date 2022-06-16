@@ -46,7 +46,7 @@ const updateUser = async function (req, res) {
     userData,
     { new: true }
   );
-  res.send({ status: updatedUser, data: updatedUser });
+  res.send({ status: true, data: updatedUser });
 };
 
 const deleteUser = async function (req, res) {
